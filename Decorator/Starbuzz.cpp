@@ -2,19 +2,19 @@
 #include <string>
 #include <vector>
 using namespace std;
-class beverageInterface
+class beverageAbstract
 {
     public:
         virtual string getDiscription()
         {
-            return "no beverage";
+            return "no beverage";;
         }
         virtual double cost()
         {
             return 0;
         }
 };
-class condimentInterface: public beverageInterface
+class condimentAbstract: public beverageAbstract
 {
     public:
         virtual string getDiscription()
@@ -22,7 +22,7 @@ class condimentInterface: public beverageInterface
             return 0;
         }
 };
-class houseBlendBeverage: public beverageInterface
+class houseBlendBeverage: public beverageAbstract
 {
     public:
         string getDiscription()
@@ -34,11 +34,23 @@ class houseBlendBeverage: public beverageInterface
             return 2.5;
         }
 };
-class milk: public condimentInterface
+class coffeBeverage: public beverageAbstract
 {
     public:
-    beverageInterface *mBeverage;
-        milk(beverageInterface *beverage)
+        string getDiscription()
+        {
+            return "Coffe";
+        }
+        double cost()
+        {
+            return 3.5;
+        }
+};
+class milk: public condimentAbstract
+{
+    public:
+    beverageAbstract *mBeverage;
+        milk(beverageAbstract *beverage)
         {
             mBeverage = beverage;
         }
@@ -51,11 +63,11 @@ class milk: public condimentInterface
             return mBeverage->cost() + 2.5;
         }
 };
-class mocha: public condimentInterface
+class mocha: public condimentAbstract
 {
     public:
-    beverageInterface *mBeverage;
-        mocha(beverageInterface *beverage)
+    beverageAbstract *mBeverage;
+        mocha(beverageAbstract *beverage)
         {
             mBeverage = beverage;
         }
@@ -68,11 +80,11 @@ class mocha: public condimentInterface
             return mBeverage->cost() + 1.5;
         }
 };
-class soy: public condimentInterface
+class soy: public condimentAbstract
 {
     public:
-    beverageInterface *mBeverage;
-        soy(beverageInterface *beverage)
+    beverageAbstract *mBeverage;
+        soy(beverageAbstract *beverage)
         {
             mBeverage = beverage;
         }
@@ -87,11 +99,13 @@ class soy: public condimentInterface
 };
 int main()
 {
-    beverageInterface *beveragePtr;
+    beverageAbstract *beveragePtr;
     beveragePtr = new houseBlendBeverage;
-    //cout << beveragePtr->getDiscription() << endl;
     beveragePtr = new milk(beveragePtr);
-    //cout << beveragePtr->getDiscription() << endl;
     beveragePtr = new soy(beveragePtr);
+    cout << beveragePtr->getDiscription() << " " << beveragePtr->cost() << endl;
+    cout << "oder new drink " << endl;
+    beveragePtr = new coffeBeverage;
+    beveragePtr = new milk(beveragePtr);
     cout << beveragePtr->getDiscription() << " " << beveragePtr->cost() << endl;
 }
