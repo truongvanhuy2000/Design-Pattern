@@ -34,9 +34,9 @@ database* database::mInstancePtr = nullptr;
 int main()
 {
     database *c_database;
-    c_database = c_database -> startInstance("alo1");
+    c_database = database::startInstance("alo1");
     cout<< c_database->getName()<< endl;
-    c_database = c_database -> startInstance("alo2");
+    c_database = database::startInstance("alo2");
     cout<< c_database->getName()<< endl;
     return 0;
 }

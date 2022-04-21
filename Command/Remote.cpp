@@ -249,30 +249,30 @@ int main()
     stereoOnCommand stereoOnCommand2(&stereo2);
     stereoOffCommand stereoOffCommand2(&stereo2);
 
-    vector <iCommand *> partyOn;
-    vector <iCommand *> partyOff;
-    partyOn.assign({&lightOnCommand1, &lightOnCommand2, &stereoOnCommand1});
-    partyOff.assign({&lightOffCommand1, &lightOffCommand2, &stereoOffCommand1});
-    partyMacroCommand partyOn1(partyOn);
-    partyMacroCommand partyOn2(partyOff);
+    // vector <iCommand *> partyOn;
+    // vector <iCommand *> partyOff;
+    // partyOn.assign({&lightOnCommand1, &lightOnCommand2, &stereoOnCommand1});
+    // partyOff.assign({&lightOffCommand1, &lightOffCommand2, &stereoOffCommand1});
+    // partyMacroCommand partyOn1(partyOn);
+    // partyMacroCommand partyOn2(partyOff);
 
-    // remote1.setCommand(0, &lightOnCommand1, &lightOffCommand1);
-    // remote1.setCommand(1, &lightOnCommand2, &lightOffCommand2);
-    // remote1.setCommand(2, &stereoOnCommand1, &stereoOffCommand1);
-    // remote1.setCommand(3, &stereoOnCommand2, &stereoOffCommand2);
-    // remote1.getList();
-    // remote1.onButtonPressed(0);
-    // remote1.onButtonPressed(1);
-    // remote1.onButtonPressed(2);
-    // remote1.onButtonPressed(3);
-    // remote1.undoButtonPressed();
-    // remote1.offButtonPressed(0);
-    // remote1.offButtonPressed(1);
-    // remote1.offButtonPressed(2);
-    // remote1.offButtonPressed(3);
-    
-    remote1.setCommand(0, &partyOn1, &partyOn2);
+    remote1.setCommand(0, &lightOnCommand1, &lightOffCommand1);
+    remote1.setCommand(1, &lightOnCommand2, &lightOffCommand2);
+    remote1.setCommand(2, &stereoOnCommand1, &stereoOffCommand1);
+    remote1.setCommand(3, &stereoOnCommand2, &stereoOffCommand2);
     remote1.getList();
     remote1.onButtonPressed(0);
+    remote1.onButtonPressed(1);
+    remote1.onButtonPressed(2);
+    remote1.onButtonPressed(3);
     remote1.undoButtonPressed();
+    remote1.offButtonPressed(0);
+    remote1.offButtonPressed(1);
+    remote1.offButtonPressed(2);
+    remote1.offButtonPressed(3);
+    
+    // remote1.setCommand(0, &partyOn1, &partyOn2);
+    // remote1.getList();
+    // remote1.onButtonPressed(0);
+    // remote1.undoButtonPressed();
 }
