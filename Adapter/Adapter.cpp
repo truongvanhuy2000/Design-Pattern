@@ -7,6 +7,7 @@ class iBackEndA
         virtual void setName(string name) = 0;
         virtual string getName() = 0;
 };
+
 class UserA : public iBackEndA
 {
     private:
@@ -55,18 +56,19 @@ class UserB : public iBackEndB
 class UserAtoBAdapter
 {
     private:
-        UserA cUser;
+        iBackEndA *cUser;
+        //UserA user1;
         string sFirstName;
         string sLastName;
     public:
-        UserAtoBAdapter(UserA user)
+        UserAtoBAdapter(iBackEndA *user)
         {
             cUser = user;
-            int splitPos = cUser.getName().find_first_of(" ");
+            int splitPos = cUser->getName().find_first_of(" ");
             if (splitPos != string::npos)
             {
-                sFirstName = user.getName().substr(0, splitPos + 1);
-                sLastName = user.getName().substr(splitPos + 1, user.getName().length() - sFirstName.length());
+                sFirstName = user->getName().substr(0, splitPos + 1);
+                sLastName = user->getName().substr(splitPos + 1, user->getName().length() - sFirstName.length());
             }
 
         }
@@ -92,7 +94,7 @@ int main()
     UserA cUserA;
     UserB cUserB;
     cUserA.setName("van huy");
-    UserAtoBAdapter adapter(cUserA);
+    UserAtoBAdapter adapter(&cUserA);
     cUserB.setFirstName(adapter.getFirstName());
     cUserB.setLastName(adapter.getLastName());
     cout << cUserB.getFirstName() << endl;
