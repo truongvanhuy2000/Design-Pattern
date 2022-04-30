@@ -77,9 +77,9 @@ class cWinterAnime : public cSeasonalAnime
 };
 int main()
 {
-    cFallAnime fallAnime;
-    cWinterAnime winterAnime;
-    fallAnime.listing();
-    winterAnime.listing();
+    cSeasonalAnime *fallAnime = new cFallAnime();
+    cSeasonalAnime *winterAnime = new cWinterAnime();
+    fallAnime->listing();
+    winterAnime->listing();
     return 0;
 }
