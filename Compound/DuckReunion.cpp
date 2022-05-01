@@ -5,6 +5,7 @@
 #include "DuckCounter.hpp"
 #include "DuckFactory.hpp"
 #include "DuckIterator.hpp"
+#include "DuckFlock.hpp"
 using namespace std;
 void simulate(Quackable *duck)
 {
@@ -18,11 +19,21 @@ int main()
     Quackable *duckCall = countingDuckFactory->createDuckCall();
     Quackable *rubberDuck = countingDuckFactory->createRubberDuck();
     Quackable *gooseDuck = countingDuckFactory->createGooseDuck();
-    simulate(mallardDuck);
-    simulate(redHeadDuck);
-    simulate(duckCall);
-    simulate(rubberDuck);
-    simulate(gooseDuck);
+    Flock duckFlock;
+    Flock mallardFlock;
+    duckFlock.add(mallardDuck);
+    duckFlock.add(redHeadDuck);
+    duckFlock.add(duckCall);
+    duckFlock.add(rubberDuck);
+    duckFlock.add(gooseDuck);
+    Quackable *mallardDuck1 = countingDuckFactory->createMallardDuck();
+    Quackable *mallardDuck2 = countingDuckFactory->createMallardDuck();
+    Quackable *mallardDuck3 = countingDuckFactory->createMallardDuck();
+    mallardFlock.add(mallardDuck1);
+    mallardFlock.add(mallardDuck2);
+    mallardFlock.add(mallardDuck3);
+    duckFlock.add(&mallardFlock);
+    simulate(&duckFlock);
     cout << QuackCounter :: getCount() << endl;
     return 0;
 }

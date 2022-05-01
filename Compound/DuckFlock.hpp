@@ -5,18 +5,22 @@
 #include <iostream>
 #include <string>
 #include <vector>
-class FlockInterface
-{
-    public:
-        virtual void add(Quackable* duck);
-        virtual void remove(Quackable* duck);
-};
-class Flock
+class Flock : public Quackable
 {
     std::vector<Quackable*> mFlock;
+    public:
     void add(Quackable* menuComponent)
     {
-        mFlock
+        mFlock.push_back(menuComponent);
+    }
+    void quack()
+    {
+        iIterator* iterator = new FlockIterator(mFlock);
+        while(iterator->hasNext())
+        {
+            Quackable* quacker = iterator->next();
+            quacker->quack();
+        }
     }
 };
 #endif

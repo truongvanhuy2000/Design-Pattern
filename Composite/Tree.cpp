@@ -5,14 +5,14 @@ using namespace std;
 class MenuComponent
 {
     public:
-        virtual void add(MenuComponent* menuComponent);
-        virtual void remove(MenuComponent* menuComponent);
-        virtual MenuComponent* getChild(int i);
-        virtual string getName();
-        virtual string getDescription();
-        virtual double getPrice();
-        virtual bool isVegetarian();
-        virtual void print();
+        virtual void add(MenuComponent* menuComponent){}
+        virtual void remove(MenuComponent* menuComponent){}
+        virtual MenuComponent* getChild(int i){return 0;}
+        virtual string getName(){return 0;}
+        virtual string getDescription(){return 0;}
+        virtual double getPrice(){return 0;}
+        virtual bool isVegetarian(){return 0;}
+        virtual void print(){}
 };
 class iIterator
 {
@@ -55,6 +55,33 @@ class MenuItem : public MenuComponent
             cout << " Name: " << getName() <<" Description: " << getDescription() << " Price: " << getPrice() << endl;
         }
 };
+class MenuIterator : public iIterator
+{
+    vector<MenuComponent*> mMenu;
+    int mPosition = 0;
+    public:
+        MenuIterator(vector<MenuComponent*> menu)
+        {
+            mMenu = menu;
+        }
+        bool hasNext()
+        {
+            if(mPosition >= mMenu.capacity())
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        MenuComponent* next()
+        {
+            MenuComponent* menu = mMenu[mPosition];
+            mPosition++;
+            return menu;
+        }
+};
 class Menu : public MenuComponent
 {
     vector<MenuComponent*> mMenuList;
@@ -95,10 +122,46 @@ class Menu : public MenuComponent
         }
         void print()
         {
-            cout << " Name: " << getName() <<" Description: " << getDescription() << endl;
+            cout << getName() << endl;
+            cout << getDescription() << endl;
+            cout << "---------------------" << endl;;
+            iIterator* iterator = new MenuIterator(mMenuList);
+            while(iterator->hasNext())
+            {
+                MenuComponent* menuComponent = iterator->next();
+                menuComponent->print();
+            }
+        }
+};
+class Waitress
+{
+    MenuComponent* mAllMenu;
+    public:
+        Waitress(MenuComponent* allMenu)
+        {
+            mAllMenu = allMenu;
+        }
+        void print()
+        {
+            mAllMenu->print();
         }
 };
 int main()
 {
+    MenuComponent* pancakeHouseMenu = new Menu("PANCAKE HOUSE MENU", "Breakfast");
+    MenuComponent* dinerMenu = new Menu("DINER MENU", "Lunch");
+    MenuComponent* cafeMenu = new Menu("CAFE MENU", "Dinner");
+    MenuComponent* dessertMenu = new Menu("DESSERT MENU", "Dessert of course!");
+    MenuComponent* allMenus = new Menu("ALL MENUS", "All menus combined");
+    allMenus->add(pancakeHouseMenu);
+    allMenus->add(dinerMenu);
+    allMenus->add(cafeMenu);
+    allMenus->add(dessertMenu);
+    dinerMenu->add(new MenuItem("Pasta", "Spaghetti with Marinara Sauce, and a slice of sourdough bread", true, 3.89));
+    dessertMenu->add(new MenuItem("Apple Pie", "Apple pie with a flakey crust, topped with vanilla icecream", true, 1.59));
+    dessertMenu->add(new MenuItem("123456", "456789", true, 1.59));
+    //pancakeHouseMenu->add(dessertMenu);
+    Waitress waitress(allMenus);
+    waitress.print();
     return 0;
 }

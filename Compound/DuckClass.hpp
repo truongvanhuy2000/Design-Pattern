@@ -1,7 +1,8 @@
 #ifndef DUCK_CLASS
 #define DUCK_CLASS
 #include <iostream>
-class Quackable
+#include <DuckObserver.hpp>
+class Quackable : public QuackObservable
 {
     public:
         virtual void quack() = 0;
@@ -16,7 +17,7 @@ class MallardDuck : public Quackable
     public:
         void quack()
         {
-            std::cout << "quack" << std::endl;
+            std::cout << "MallardDuck quack" << std::endl;
         }
 };
 class RedHeadDuck : public Quackable
@@ -24,7 +25,7 @@ class RedHeadDuck : public Quackable
     public:
         void quack()
         {
-            std::cout << "quack" << std::endl;
+            std::cout << "RedHeadDuck quack" << std::endl;
         }
 };
 class DuckCall : public Quackable
@@ -32,7 +33,7 @@ class DuckCall : public Quackable
     public:
         void quack()
         {
-            std::cout << "kwak" << std::endl;
+            std::cout << "DuckCall kwak" << std::endl;
         }
 };
 class RubberDuck : public Quackable
@@ -40,7 +41,7 @@ class RubberDuck : public Quackable
     public:
         void quack()
         {
-            std::cout << "squeak" << std::endl;
+            std::cout << "RubberDuck squeak" << std::endl;
         }
 };
 class Goose : public Honkable
@@ -48,7 +49,7 @@ class Goose : public Honkable
     public:
         void honk()
         {
-            std::cout << "Honk" << std::endl;
+            std::cout << "Goose Honk" << std::endl;
         }
 };
 class GooseAdapter : public Quackable
