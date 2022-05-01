@@ -273,7 +273,7 @@ class GumballMachine : public GumballMachineInterface
 };
 int main()
 {
-    int count = 20;
+    int count = 5;
     GumballMachine gumballMachine1(100);
     while(count > 0)
     {
@@ -282,6 +282,5 @@ int main()
         gumballMachine1.turnCrank();
         count--;
     }
-    
     return 0;
 }
