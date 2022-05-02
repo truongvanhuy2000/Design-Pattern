@@ -135,15 +135,11 @@ class Menu : public MenuComponent
 };
 class Waitress
 {
-    MenuComponent* mAllMenu;
     public:
-        Waitress(MenuComponent* allMenu)
+        Waitress(){}
+        void print(MenuComponent* allMenu)
         {
-            mAllMenu = allMenu;
-        }
-        void print()
-        {
-            mAllMenu->print();
+            allMenu->print();
         }
 };
 int main()
@@ -160,8 +156,12 @@ int main()
     dinerMenu->add(new MenuItem("Pasta", "Spaghetti with Marinara Sauce, and a slice of sourdough bread", true, 3.89));
     dessertMenu->add(new MenuItem("Apple Pie", "Apple pie with a flakey crust, topped with vanilla icecream", true, 1.59));
     dessertMenu->add(new MenuItem("123456", "456789", true, 1.59));
-    //pancakeHouseMenu->add(dessertMenu);
-    Waitress waitress(allMenus);
-    waitress.print();
+    pancakeHouseMenu->add(dessertMenu);
+    dinerMenu->add(dessertMenu);
+    Waitress waitress;
+    cout << "here your full Menu" << endl;
+    waitress.print(allMenus);
+    cout << "\n \n here your Diner Menu" << endl;
+    waitress.print(dinerMenu);
     return 0;
 }
